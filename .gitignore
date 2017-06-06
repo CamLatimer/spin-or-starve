@@ -60,4 +60,4 @@ typings/
 spin-or-starve-ae571-firebase-adminsdk-xu6sm-e40f63b1eb.json
 public/js/bundle.js
 
-*.store
+*.DS_Store
