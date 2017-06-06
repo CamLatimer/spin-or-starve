@@ -1,0 +1,47 @@
+{
+  "name": "sos",
+  "version": "1.0.0",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "NODE_ENV=production node index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv-safe": "^4.0.4",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "firebase": "^3.9.0",
+    "firebase-admin": "^4.2.1",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.18.8",
+    "browserify": "^14.3.0",
+    "envify": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-if": "^2.0.2",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^3.0.0",
+    "handlebars": "^4.0.10",
+    "hbsfy": "^2.7.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

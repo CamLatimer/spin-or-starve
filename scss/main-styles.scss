@@ -1,0 +1,19 @@
+// globals
+
+*{
+  margin:0; padding:0;
+}
+h1{
+  // made a separate declation for the h1's since normalize.css was setting a margin on them and specificity was overiding
+  // my rule above for all the elements
+  margin:0;
+}
+html, body{
+    width:100%;
+    
+}
+header{
+  height:100px;
+  width:100%;
+  background:red;
+}
