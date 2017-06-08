@@ -14,17 +14,18 @@ history.replaceState(startingState, startingState.pageStart, startingState.pageU
   // listeners for signing up and out
 function addSignIn(){
     document.getElementById('signInSubmit').addEventListener('click', function(){
-      const email = document.getElementById('signInEmail').value;
-      const passw = document.getElementById('signInPass').value;
+      let email = document.getElementById('signInEmail').value;
+      let passw = document.getElementById('signInPass').value;
       // run firebase auth sign in w/ email and password
       AppAuth.handleSignIn(email, passw);
     })
   }
 function addSignUp(){
-  document.getElementById('signOutSubmit').addEventListener('click', function(){
-    const email = document.getElementById('signInEmail').value;
-    const passw = document.getElementById('signInPass').value;
-    // run firebase auth sign in w/ email and password
+  document.getElementById('signUpSubmit').addEventListener('click', function(){
+    let email = document.getElementById('signUpEmail').value;
+    let passw = document.getElementById('signUpPass').value;
+    // run firebase auth sign up w/ email and password
+    console.log('wassup');
     AppAuth.handleSignUp(email, passw);
   })
 }
@@ -38,7 +39,12 @@ function addSignUp(){
   // place the page's main content
   function swapContent(view){
     document.getElementById('target').innerHTML = view();
+    // make sure listeners are attached to buttons when rendering view
     addSignOut();
+    if(view === home){
+      addSignIn();
+      addSignUp();
+    }
   }
 
   // run swapContent() according to history state URL
@@ -46,7 +52,6 @@ function addSignUp(){
     switch(history.state.pageURL){
       case '/':
         swapContent(home);
-        addSignIn();
         break;
       case '/spin':
         swapContent(spin);
@@ -56,7 +61,6 @@ function addSignUp(){
         break;
       default:
         swapContent(home);
-        addSignIn();
     }
   }
 
@@ -69,12 +73,13 @@ let checkSignOut = function(){
         } else if(!user) {
           console.log('signed out');
             swapContent(home);
-            addSignIn();
         }
     });
 }
 
+// on page load, check to see if user is logged in
 checkSignOut();
+
 
   // listen for back or forward button to be triggered and update page content
   window.onpopstate = function(event){
