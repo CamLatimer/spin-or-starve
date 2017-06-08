@@ -1,18 +1,18 @@
 import $ from 'jquery';
 
-const zomato = (function(){
+const yelp = (function(){
   function yelpTest(){
     $.ajax()
     .then((result) => {
-      console.log(result);
+      // do stuff with the response
     })
     .catch((error) => {
       console.log(error);
     })
-    // console.log(process.env.ZOMATO_KEY);
+    // do stuff with the error
   }
   return {
-    zomatoTest: zomatoTest
+    yelpTest: yelpTest
   }
 })();
 
