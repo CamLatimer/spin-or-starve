@@ -1,5 +1,3 @@
-import spaRouter from './routes/spaRouter.js';
-import  { yelp } from './api/yelpAPI';
+import { spaRouter } from './routes/spaRouter.js';
 
-spaRouter();
-yelp.yelpTest();
+spaRouter.init();

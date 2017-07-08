@@ -30,6 +30,7 @@ gulp.task('default', ['sass', 'jsDev', 'watch'], () => {
         proxy: 'localhost:8081',
         open: false,
         online: true,
+        cors: true,
     })
 })
 

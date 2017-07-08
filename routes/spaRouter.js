@@ -4,12 +4,24 @@ const result = require('../views/result.html');
 const home = require('../views/home.html');
 import * as firebase from 'firebase';
 import { AppAuth } from '../firebase/sosAuth';
+import  { places } from '../api/places';
 
-export default function spaRouter(){
+let spaRouter = (function(){
 
-// get window href and set an initial history state entry so app isn't started from '/' if users come back or refresh page while signed in
-let startingState = {pageStart: 'start', pageURL: location.pathname};
-history.replaceState(startingState, startingState.pageStart, startingState.pageURL);
+function init(){
+  // get window href and set an initial history state entry so app isn't started from '/' if users come back or refresh page while signed in
+  let startingState = {pageStart: 'start', pageURL: location.pathname};
+  history.replaceState(startingState, startingState.pageStart, startingState.pageURL);
+
+  // on page load, check to see if user is logged in
+  checkSignOut();
+
+  // listen for back or forward button to be triggered and update page content
+  window.onpopstate = function(event){
+    // use checkSignOut instead of routes in case user has left the site and then came back
+    checkSignOut();
+  };
+}
 
   // listeners for signing up and out
 function addSignIn(){
@@ -37,8 +49,9 @@ function addSignUp(){
   }
 
   // place the page's main content
-  function swapContent(view){
-    document.getElementById('target').innerHTML = view();
+  function swapContent(view, data){
+    document.getElementById('target').innerHTML = view(data);
+
     // make sure listeners are attached to buttons when rendering view
     addSignOut();
     if(view === home){
@@ -51,16 +64,18 @@ function addSignUp(){
   function routes(){
     switch(history.state.pageURL){
       case '/':
-        swapContent(home);
+        swapContent(spin);
+        places.init();
         break;
       case '/spin':
         swapContent(spin);
+        places.init();
         break;
       case '/result':
-        swapContent(result);
+        let searchResult = places.showUserSearchResult();
+        swapContent(result, searchResult);
+        console.log(searchResult);
         break;
-      default:
-        swapContent(home);
     }
   }
 
@@ -72,18 +87,16 @@ let checkSignOut = function(){
             routes();
         } else if(!user) {
           console.log('signed out');
-            swapContent(home);
+          swapContent(home);
         }
     });
 }
 
-// on page load, check to see if user is logged in
-checkSignOut();
-
-
-  // listen for back or forward button to be triggered and update page content
-  window.onpopstate = function(event){
-    checkSignOut();
-  };
-
+return {
+  init: init,
+  routes: routes
 }
+
+})();
+
+export { spaRouter }
