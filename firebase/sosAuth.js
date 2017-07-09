@@ -1,5 +1,6 @@
 import firebaseConfig from './firebaseConfig';
 import * as firebase from 'firebase';
+import { spaRouter } from '../routes/spaRouter';
 
 const AppAuth = (function(){
 
@@ -7,15 +8,10 @@ const AppAuth = (function(){
   firebase.initializeApp(firebaseConfig);
 
 // route to spin page after signing in or signing up
-  function changeRoute(data){
-      let pageData = data;
-      history.pushState(data, data.title, data.pageURL)
-  }
-
   function handleSignUp(userEmail, userPass) {
       firebase.auth()
       .createUserWithEmailAndPassword(userEmail, userPass)
-      .then(changeRoute({title:'spin', pageURL: '/spin'}))
+      .then(spaRouter.changeRoute({title:'spin', pageURL: '/start'}))
       .catch(function(error) {
           // Handle Errors here.
           alert(`oops... ${error.cod}, ${error.message}`);
@@ -25,7 +21,7 @@ const AppAuth = (function(){
   function handleSignIn(userEmail, userPass) {
       firebase.auth()
       .signInWithEmailAndPassword(userEmail, userPass)
-      .then(changeRoute({title:'spin', pageURL: '/spin'}))
+      .then(spaRouter.changeRoute({title:'spin', pageURL: '/start'}))
       .catch(function(error) {
           // Handle Errors here.
           alert(`oops... ${error.cod}, ${error.message}`);
@@ -38,7 +34,7 @@ const AppAuth = (function(){
       .then(function() {
           // Sign-out successful.
           console.log('thank you. come again.');
-          changeRoute({title:'home', pageURL: '/'});
+          spaRouter.changeRoute({title:'home', pageURL: '/'});
       }).catch(function(error) {
           // An error happened.
           console.log(error);

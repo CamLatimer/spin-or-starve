@@ -51,7 +51,7 @@ gulp.task('sass', () =>  {
 
 gulp.task('watch', () => {
   gulp.watch(['./views/**/*.*' ], ['jsDev']);
-  gulp.watch(['./entry.js', './routes/*.js', './firebase/*.js', './api/*.js'], ['jsDev']);
+  gulp.watch(['./entry.js', './routes/*.js', './firebase/*.js', './api/*.js', './DOM/*.js'], ['jsDev']);
   gulp.watch([ './scss/**/*.scss'], ['sass'])
 console.log('gulp is up...');
 })

@@ -71,7 +71,7 @@ const places = (function(){
 
    // add an event listener to spin button for making the call to Places
    function addApiTrigger(location){
-     let apiTrigger = document.getElementById('apiTrigger');
+     let apiTrigger = document.querySelector('.apiTrigger');
      if(apiTrigger){
        apiTrigger.addEventListener('click', function(){
          placesSearch(location);
@@ -143,12 +143,12 @@ const places = (function(){
      // route to spin page after signing in or signing up
      let pageData = {
        title: 'result',
-       pageURL: '/result'
+       pageURL: '/spin'
      };
      history.pushState(pageData, pageData.title, pageData.pageURL);
      spaRouter.routes();
+     addApiTrigger();
    }
-
    // return the place data to be put in the DOM -- use in spaRouter.js
    function showUserSearchResult(){
      return userViewData;
