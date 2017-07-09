@@ -38,7 +38,6 @@ function addSignUp(){
     let email = document.getElementById('signUpEmail').value;
     let passw = document.getElementById('signUpPass').value;
     // run firebase auth sign up w/ email and password
-    console.log('wassup');
     AppAuth.handleSignUp(email, passw);
   })
 }
@@ -64,13 +63,14 @@ function addSignUp(){
           swapContent(spin);
           places.init();
           break;
-        case '/start':
-          swapContent(spin);
-          places.init();
-          break;
+        // case '/start':
+        //   swapContent(spin);
+        //   places.init();
+        //   break;
         case '/spin':
+          places.init();
           let searchResult = places.showUserSearchResult();
-          swapContent(result, searchResult);
+          swapContent(spin, searchResult);
           break;
         case '/about':
           swapContent(about);
@@ -105,7 +105,8 @@ function changeRoute(data){
 return {
   init: init,
   routes: routes,
-  changeRoute: changeRoute
+  changeRoute: changeRoute,
+  swapContent: swapContent
 }
 
 })();

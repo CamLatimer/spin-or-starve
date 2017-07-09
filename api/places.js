@@ -2,6 +2,7 @@
 // grab data from api, show the user a single random result for their area,
 // allow the user to see another result if they want
 import { spaRouter } from '../routes/spaRouter';
+const spin = require('../views/spin.html');
 
 const places = (function(){
 
@@ -10,7 +11,7 @@ const places = (function(){
   let userLocation;
   let mapContainer;
   let mapArea;
-  let placesArr;
+  let placesArr = [];
   let userPlaces = [];
   let userViewData;
 
@@ -74,7 +75,8 @@ const places = (function(){
      let apiTrigger = document.querySelector('.apiTrigger');
      if(apiTrigger){
        apiTrigger.addEventListener('click', function(){
-         placesSearch(location);
+        //  placesSearch(location);
+        processPlaces();
        })
      }
    }
@@ -85,25 +87,27 @@ const places = (function(){
      let request = {
        location: location,
        radius: 20000,
-       type: 'restaurant'
+       query: 'restaurant'
      }
-     if(placesArr === undefined){
+     if(placesArr.length === 0){
        placesService = new google.maps.places.PlacesService(googleMap);
-       placesService.radarSearch(request, handlePlacesService);
-     } else {
-       processPlaces();
+       placesService.textSearch(request, handlePlacesService);
      }
    }
 
    // callback to handle response from places API
-   function handlePlacesService(response, status){
-       placesArr = response;
-       processPlaces();
+   function handlePlacesService(response, status, pagination){
+       placesArr = placesArr.concat(response);
+       if(pagination.hasNextPage){
+         setTimeout(function(){
+           pagination.nextPage();
+         }, 2100)
+       }
    }
 
    // get the info we want from places API response
    function processPlaces(){
-
+     console.log(placesArr);
      // pick a place from beginning of the placesArr
      let place = placesArr.splice(0,1)[0];
      let searchResult;
@@ -118,7 +122,7 @@ const places = (function(){
        }
      } else {
        userPlaces.push(place);
-       searchResult = place;
+       searchResult = userPlaces[0];
        // show the user the result...
      }
      placesService.getDetails({placeId: searchResult.place_id}, handleDetails)
@@ -133,6 +137,7 @@ const places = (function(){
        website: response.website,
        phone: response.formatted_phone_number,
        photoUrl: img,
+       types: response.types,
      }
     //  change the view
      routeToResult();
@@ -140,13 +145,15 @@ const places = (function(){
 
    // route user to page showing result
    function routeToResult(){
-     // route to spin page after signing in or signing up
-     let pageData = {
-       title: 'result',
-       pageURL: '/spin'
-     };
-     history.pushState(pageData, pageData.title, pageData.pageURL);
-     spaRouter.routes();
+    //  // route to spin page after signing in or signing up
+    //  let pageData = {
+    //    title: 'result',
+    //    pageURL: '/spin'
+    //  };
+    //  history.pushState(pageData, pageData.title, pageData.pageURL);
+    //  spaRouter.routes();
+
+    spaRouter.swapContent(spin, userViewData)
      addApiTrigger();
    }
    // return the place data to be put in the DOM -- use in spaRouter.js
@@ -160,6 +167,7 @@ const places = (function(){
     if(userLocation){
       console.log(userLocation);
       makeMap(userLocation);
+      placesSearch(userLocation);
       addApiTrigger(userLocation);
     } else {
       // grab user's location via browser or user input + google maps
@@ -170,6 +178,7 @@ const places = (function(){
         .then(browserLocate)
         .catch(location => location)
         .then(makeMap)
+        .then(placesSearch)
         .then(addApiTrigger);
       // } else {
         // for now, only make available if

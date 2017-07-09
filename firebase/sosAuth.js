@@ -11,7 +11,7 @@ const AppAuth = (function(){
   function handleSignUp(userEmail, userPass) {
       firebase.auth()
       .createUserWithEmailAndPassword(userEmail, userPass)
-      .then(spaRouter.changeRoute({title:'spin', pageURL: '/start'}))
+      .then(spaRouter.changeRoute({title:'spin', pageURL: '/spin'}))
       .catch(function(error) {
           // Handle Errors here.
           alert(`oops... ${error.cod}, ${error.message}`);
@@ -21,7 +21,7 @@ const AppAuth = (function(){
   function handleSignIn(userEmail, userPass) {
       firebase.auth()
       .signInWithEmailAndPassword(userEmail, userPass)
-      .then(spaRouter.changeRoute({title:'spin', pageURL: '/start'}))
+      .then(spaRouter.changeRoute({title:'spin', pageURL: '/spin'}))
       .catch(function(error) {
           // Handle Errors here.
           alert(`oops... ${error.cod}, ${error.message}`);
