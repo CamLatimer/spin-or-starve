@@ -1,15 +1,15 @@
-<h2>Sign Up:</h2>
-<form class="signUp" action="index.html" method="post">
-  <input id="signUpEmail" type="text" name="name" placeholder="email" value=""/>
-  <input id="signUpPass" type="text" name="name" value="" placeholder="password">
-  <!-- <input id="signUpSubmit" type="button" name="name" value="submit"></input> -->
+<div class="auth">
+  <h1 class="auth__header">Sign Up:</h1>
+<form class="auth__form auth__form--signUp" action="index.html" method="post">
+  <input class="auth__input" id="signUpEmail" type="text" name="name" placeholder="email" value=""/>
+  <input class="auth__input" id="signUpPass" type="password" name="name" value="" placeholder="password">
+    <button class="app__button auth__button" id="signUpSubmit" type="submit" name="name">submit</button>
 </form>
-  <button id="signUpSubmit" type="button" name="name">submit</button>
+
 <!-- sign in -->
-<h2>Sign In:</h2>
-<form class="signIn" action="index.html" method="post">
-  <input id="signInEmail" type="text" name="name" placeholder="email" value=""/>
-  <input id="signInPass" type="text" name="name" value="" placeholder="password">
-  <!-- <input id="signInSubmit" type="button" name="name" value="submit"></input> -->
+<h1 class="auth__header">Sign In:</h1>
+<form class="auth__form auth__form--signIn" action="index.html" method="post">
+  <input class="auth__input" id="signInEmail" type="text" name="name" placeholder="email" value=""/>
+  <input class="auth__input" id="signInPass" type="password" name="name" value="" placeholder="password">
+  <button class="app__button auth__button" id="signInSubmit" type="submit" name="name" value="submit">Submit</button>
 </form>
-<button id="signInSubmit" type="button" name="name" value="submit">Submit</button>

@@ -1,6 +1,5 @@
 // note: can't use es6 import syntax with hbsfy
-const spin = require('../views/start.html');
-const result = require('../views/spin.html');
+const spin = require('../views/spin.html');
 const login = require('../views/login.html');
 const about = require('../views/about.html');
 import * as firebase from 'firebase';
@@ -26,7 +25,8 @@ function init(){
 
   // listeners for signing up and out
 function addSignIn(){
-    document.getElementById('signInSubmit').addEventListener('click', function(){
+    document.querySelector('.auth__form--signIn').addEventListener('submit', function(event){
+      event.preventDefault();
       let email = document.getElementById('signInEmail').value;
       let passw = document.getElementById('signInPass').value;
       // run firebase auth sign in w/ email and password
@@ -34,7 +34,8 @@ function addSignIn(){
     })
   }
 function addSignUp(){
-  document.getElementById('signUpSubmit').addEventListener('click', function(){
+  document.querySelector('.auth__form--signUp').addEventListener('submit', function(event){
+    event.preventDefault();
     let email = document.getElementById('signUpEmail').value;
     let passw = document.getElementById('signUpPass').value;
     // run firebase auth sign up w/ email and password
