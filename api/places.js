@@ -3,6 +3,7 @@
 // allow the user to see another result if they want
 import { spaRouter } from '../routes/spaRouter';
 const spin = require('../views/spin.html');
+import { wheelSpin, resultToggle } from '../DOM/dom';
 
 const places = (function(){
 
@@ -145,16 +146,16 @@ const places = (function(){
 
    // route user to page showing result
    function routeToResult(){
-    //  // route to spin page after signing in or signing up
-    //  let pageData = {
-    //    title: 'result',
-    //    pageURL: '/spin'
-    //  };
-    //  history.pushState(pageData, pageData.title, pageData.pageURL);
-    //  spaRouter.routes();
+     wheelSpin();
+     setTimeout(function(){
+       spaRouter.swapContent(spin, userViewData)
+        addApiTrigger();
+        document.querySelector('.spin__wheelHolder').style.opacity = 0;
+        let result = document.querySelector('.spin__result');
+        result.classList.remove('resultHide');
+        result.classList.add('resultShow');
+     }, 4000)
 
-    spaRouter.swapContent(spin, userViewData)
-     addApiTrigger();
    }
    // return the place data to be put in the DOM -- use in spaRouter.js
    function showUserSearchResult(){

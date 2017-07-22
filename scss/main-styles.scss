@@ -1,4 +1,5 @@
 // globals
+$appOrange: rgb(255, 233, 175);
 
 *{
   margin:0; padding:0;
@@ -14,7 +15,14 @@ html, body{
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
     font-style: italic;
+    color: darken(#cc0045, 20%);
 }
+a {
+  color:red;
+  text-decoration: none;
+}
+
+//app header
 .appHeader{
   width:100%;
   padding:.5rem 0;
@@ -26,9 +34,7 @@ html, body{
 .appHeader__welcome, .appHeader__signOut{
   margin-bottom:.3rem ;
 }
-.appHeader__signOut{
-  color:red;
-}
+
 // app auth
 .auth{
   width: 95%;
@@ -87,4 +93,164 @@ input:-webkit-autofill:active {
   background-color:rgb(255, 233, 175);
   color: red;
   box-shadow: 0 2px 10px red;
+}
+
+// spinning
+.spin{
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 320px;
+  text-align: center;
+  margin:0 auto;
+}
+.spin__wheelHolder{
+  position: absolute;
+  width: 100%;
+  margin:1rem auto;
+  transition: opacity .5s;
+}
+.spin__wheel {
+  display: block;
+  width: 300px;;
+  height: 300px;
+  margin:auto;
+  border-radius: 50%;
+  background: red;
+  // transition: transform 3s linear;
+}
+
+.spin__wheel h1 {
+  position: relative;
+  width: 100%;
+  top:40%;
+  text-align: center;
+  margin: auto;
+  font-size:3rem;
+  line-height: .98;
+  color:white;
+}
+.rotator{
+  animation-name: rotateAnimation;
+  animation-duration: .15s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-iteration-count: 40;
+  // transform: rotate(9000deg);
+}
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+.firstOpacityChange{
+  animation-name: firstWheelOpacity;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+.opacityChange{
+  animation-name: wheelOpacity;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+@keyframes wheelOpacity {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.2;
+  }
+  25% {
+    opacity: .5;
+  }
+  50% {
+    opacity: .8;
+  }
+  75% {
+    opacity: 1;
+  }
+  80% {
+    opacity: .4;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+@keyframes firstWheelOpacity {
+  0% {
+    opacity: .8;
+  }
+  0% {
+    opacity: .5;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+// spin results
+.spin__result{
+  position: absolute;
+  width: 100%;
+  margin:auto;
+  opacity:0;
+}
+.spin__resultList{
+  position: relative;
+  width: 95%;
+  max-width: 380px;
+  margin:2rem auto;
+  padding: 2rem 0;
+}
+.spin__resultItem{
+  width: 100%;
+  margin:auto;
+  margin-bottom:1rem;
+  max-width: 320px;
+  list-style-type: none;
+}
+.spin__resultItem:last-child{
+  margin-bottom: 0;
+}
+.spin__resultItem--img img{
+  border: 2px solid $appOrange;
+}
+.apiTrigger{
+  position: relative;
+  bottom:0;
+}
+.resultShow{
+  animation-name: addOpacity;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+.resultHide{
+  animation-name: removeOpacity;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@keyframes addOpacity{
+  0%{
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes removeOpacity{
+  0%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

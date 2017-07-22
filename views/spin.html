@@ -1,7 +1,30 @@
-<h2>spin markup goes here</h2>
-<ul>
-  <li>{{name}}</li>
-</ul>
+<div class="spin">
+  <div class="spin__wheelHolder">
+    <div class="spin__wheel">
+      <h1>XXXX</h1>
+    </div>
+  </div>
+<div class="spin__result">
+  <ul class="spin__resultList">
+    <li class="spin__resultItem">{{name}}</li>
+    <li class="spin__resultItem">{{address}}</li>
+    <li class="spin__resultItem">
+      <a href="{{website}}" target="_blank">
+      {{#if website}}
+        website
+      {{/if}}
+      </a>
+    </li>
+    <li class="spin__resultItem spin__resultItem--img">
+      <img src="{{photoUrl}}" alt="">
+    </li>
+    <!-- website: response.website,
+    phone: response.formatted_phone_number,
+    photoUrl: img,
+    types: response.types, -->
+  </ul>
+</div>
+</div>
 
 <button class="apiTrigger app__button">SPIN</button>
 
